@@ -18,7 +18,9 @@ int cells[] = {white,white,white,white,white,white,white,white,white,
                yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow}
 int shiftreg[] = new int[27];
 //arrayer för celler och skiftregister, där varje cell innehåller färgkoden för dess färg
+
 //cellpositioner: https://docs.google.com/spreadsheets/d/1I1vEZkltXm3n-aRes2yo80VTgN-QR8bWqV914L8BkHc/edit#gid=0
+
 void setup() {
   applychange();
   pinMode(latchPin, OUTPUT);
@@ -26,6 +28,7 @@ void setup() {
   pinMode(dataPin, OUTPUT);
   //anger läget för udatapins
   Serial.begin(9600);
+  
 }
 void loop() {
 
@@ -41,6 +44,7 @@ shiftOut(dataPin, clockPin, MSBFIRST, data);
 digitalWrite(latchPin, HIGH);
 
 }
+
 
 void rotateR(int arrin[], bool inverted){
   
@@ -160,6 +164,10 @@ void rotateW(int arrin[], bool inverted){
     arrin[9] = cells[7];
     arrin[4] = cells[8];
     arrin[3] = cells[9];
+
+void rotateR(int arrin[], bool inverted){
+  if(!inverted){
+
     
   }
   
@@ -171,6 +179,11 @@ void rotateW(int arrin[], bool inverted){
 }
 
 void applychange(){
+  for(int i = 0; i < 28; i++){
+    shiftreg[i] = ((cells[i*2] << 3) + cells[i*2+1]) << 2;
+  }
+}
+void applychange(){ //uppdaterar skiftregister efter cellers tillstånd
   for(int i = 0; i < 28; i++){
     shiftreg[i] = ((cells[i*2] << 3) + cells[i*2+1]) << 2;
   }
