@@ -164,10 +164,64 @@ void rotateW(int arrin[], bool inverted){
     arrin[9] = cells[7];
     arrin[4] = cells[8];
     arrin[3] = cells[9];
+  }
+}
 
-void rotateR(int arrin[], bool inverted){
+void rotateG(int arrin[], bool inverted){
+  
   if(!inverted){
-
+    
+    arrin[1] = cells[34];
+    arrin[6] = cells[33];
+    arrin[7] = cells[28];
+    
+    arrin[12] = cells[1];
+    arrin[13] = cells[6];
+    arrin[18] = cells[7];
+    
+    arrin[46] = cells[12];
+    arrin[51] = cells[13];
+    arrin[52] = cells[18];
+    
+    arrin[34] = cells[46];
+    arrin[33] = cells[51];
+    arrin[28] = cells[52];
+    
+    arrin[27] = cells[21];
+    arrin[26] = cells[22];
+    arrin[25] = cells[27];
+    arrin[24] = cells[26];
+    arrin[19] = cells[25];
+    arrin[20] = cells[24];
+    arrin[21] = cells[19];
+    arrin[22] = cells[20];
+    
+  } else{
+    
+    arrin[34] = cells[1];
+    arrin[33] = cells[6];
+    arrin[28] = cells[7];
+    
+    arrin[1] = cells[12];
+    arrin[6] = cells[13];
+    arrin[7] = cells[18];
+    
+    arrin[12] = cells[46];
+    arrin[13] = cells[51];
+    arrin[18] = cells[52];
+    
+    arrin[46] = cells[34];
+    arrin[51] = cells[33];
+    arrin[52] = cells[28];
+    
+    arrin[21] = cells[27];
+    arrin[22] = cells[26];
+    arrin[27] = cells[25];
+    arrin[26] = cells[24];
+    arrin[25] = cells[19];
+    arrin[24] = cells[20];
+    arrin[19] = cells[21];
+    arrin[20] = cells[22];
     
   }
   
