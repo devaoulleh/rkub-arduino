@@ -9,6 +9,7 @@ int latchPin = 8;
 int clockPin = 12;
 int dataPin = 11;
 //pins för utdata;
+int incomingByte = 0;
 int cells[] = {white,white,white,white,white,white,white,white,white,
                red,red,red,red,red,red,red,red,red,
                green,green,green,green,green,green,green,green,green,
@@ -23,11 +24,14 @@ void setup() {
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
   //anger läget för udatapins
+  Serial.begin(9600);
   
 }
 void loop() {
 
-int data = 0b01110100;
+  if(Serial.available() > 0){
+    incomingByte = Serial.read();
+  }
 // take the latchPin low so
 // the LEDs don't change while you're sending in bits:
 digitalWrite(latchPin, LOW);
@@ -38,10 +42,7 @@ digitalWrite(latchPin, HIGH);
 
 }
 
-int appenddata(int data, int data2){
-  data = (data << 3) + data2;
-  return data;
-}
+
 void rotateR(int arrin[], bool inverted){
   if(!inverted){
     
@@ -49,7 +50,7 @@ void rotateR(int arrin[], bool inverted){
   else{
     
 }
-void applychange(){
+void applychange(){ //uppdaterar skiftregister efter cellers tillstånd
   for(int i = 0; i < 28; i++){
     shiftreg[i] = ((cells[i*2] << 3) + cells[i*2+1]) << 2;
   }
