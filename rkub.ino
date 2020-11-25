@@ -9,6 +9,7 @@ int latchPin = 8;
 int clockPin = 12;
 int dataPin = 11;
 //pins för utdata;
+int incomingByte = 0;
 int cells[] = {white,white,white,white,white,white,white,white,white,
                red,red,red,red,red,red,red,red,red,
                green,green,green,green,green,green,green,green,green,
