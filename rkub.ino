@@ -1,23 +1,32 @@
-int white = 0b111;
-int red = 0b100;
-int green = 0b010;
-int blue = 0b001;
-int yellow = 0b110;
-int magenta = 0b101;
-
+int white = 0b000;
+int red = 0b011;
+int green = 0b101;
+int blue = 0b110;
+int yellow = 0b001;
+int magenta = 0b010;
+//färgkoder RGB för färgerna, gemensam anod
 int latchPin = 8;
 int clockPin = 12;
 int dataPin = 11;
-int cells[] = new int[54];
+//pins för utdata;
+int cells[] = {white,white,white,white,white,white,white,white,white,
+               red,red,red,red,red,red,red,red,red,
+               green,green,green,green,green,green,green,green,green,
+               magenta,magenta,magenta,magenta,magenta,magenta,magenta,magenta,magenta,
+               blue,blue,blue,blue,blue,blue,blue,blue,blue,
+               yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow}
+int shiftreg[] = new int[27];
+//arrayer för celler och skiftregister, där varje cell innehåller färgkoden för dess färg
 void setup() {
-//set pins to output so you can control the shift register
-pinMode(latchPin, OUTPUT);
-pinMode(clockPin, OUTPUT);
-pinMode(dataPin, OUTPUT);
+  applychange();
+  pinMode(latchPin, OUTPUT);
+  pinMode(clockPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);
+  //anger läget för udatapins
+  
 }
 void loop() {
-// count from 0 to 255 and display the number
-// on the LEDs
+
 int data = 0b01110100;
 // take the latchPin low so
 // the LEDs don't change while you're sending in bits:
@@ -26,8 +35,6 @@ digitalWrite(latchPin, LOW);
 shiftOut(dataPin, clockPin, MSBFIRST, data);
 //take the latch pin high so the LEDs will light up:
 digitalWrite(latchPin, HIGH);
-// pause before next value:
-delay(500);
 
 }
 
@@ -36,9 +43,14 @@ int appenddata(int data, int data2){
   return data;
 }
 void rotateR(int arrin[], bool inverted){
-  if(inverted){
+  if(!inverted){
     
   }
   else{
     
+}
+void applychange(){
+  for(int i = 0; i < 28; i++){
+    shiftreg[i] = ((cells[i*2] << 3) + cells[i*2+1]) << 2;
+  }
 }
