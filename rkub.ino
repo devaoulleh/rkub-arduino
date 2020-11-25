@@ -24,11 +24,13 @@ void setup() {
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
   //anger läget för udatapins
-  
+  Serial.begin(9600);
 }
 void loop() {
 
-int data = 0b01110100;
+  if(Serial.available() > 0){
+    incomingByte = Serial.read();
+  }
 // take the latchPin low so
 // the LEDs don't change while you're sending in bits:
 digitalWrite(latchPin, LOW);
@@ -47,11 +49,126 @@ void rotateR(int arrin[], bool inverted){
     arrin[8] = cells[24];
     arrin[9] = cells[25];
     
+    arrin[41] = cells[7];
+    arrin[42] = cells[8];
+    arrin[45] = cells[9];
+    
+    arrin[46] = cells[45];
+    arrin[47] = cells[42];
+    arrin[48] = cells[41];
+    
+    arrin[19] = cells[48];
+    arrin[24] = cells[47];
+    arrin[25] = cells[46];
+    
+    arrin[12] = cells[18];
+    arrin[11] = cells[13];
+    arrin[10] = cells[12];
+    arrin[15] = cells[11];
+    arrin[16] = cells[10];
+    arrin[17] = cells[15];
+    arrin[18] = cells[16];
+    arrin[13] = cells[17];
+    
   } else{
+    arrin[19] = cells[7];
+    arrin[24] = cells[8];
+    arrin[25] = cells[9];
+    
+    arrin[7] = cells[41];
+    arrin[8] = cells[42];
+    arrin[9] = cells[45];
+    
+    arrin[45] = cells[46];
+    arrin[42] = cells[47];
+    arrin[41] = cells[48];
+    
+    arrin[48] = cells[19];
+    arrin[47] = cells[24];
+    arrin[46] = cells[25];
+    
+    arrin[18] = cells[12];
+    arrin[13] = cells[11];
+    arrin[12] = cells[10];
+    arrin[11] = cells[15];
+    arrin[10] = cells[16];
+    arrin[15] = cells[17];
+    arrin[16] = cells[18];
+    arrin[17] = cells[13];
+  }
+  
+  for(int i = 0; i < 54; i++){
+    
+    cells[i] = arrin[i];
     
   }
-  cells = arrin;
 }
+
+void rotateW(int arrin[], bool inverted){
+  
+  if(!inverted){
+    
+    arrin[28] = cells[25];
+    arrin[29] = cells[26];
+    arrin[30] = cells[27];
+    
+    arrin[25] = cells[10];
+    arrin[26] = cells[11];
+    arrin[27] = cells[12];
+    
+    arrin[12] = cells[41];
+    arrin[11] = cells[40];
+    arrin[10] = cells[39];
+    
+    arrin[39] = cells[28];
+    arrin[40] = cells[29];
+    arrin[41] = cells[30];
+    
+    arrin[1] = cells[7];
+    arrin[2] = cells[6];
+    arrin[3] = cells[1];
+    arrin[4] = cells[2];
+    arrin[6] = cells[8];
+    arrin[7] = cells[9];
+    arrin[8] = cells[4];
+    arrin[9] = cells[3];
+    
+  } else{
+    
+    arrin[25] = cells[28];
+    arrin[26] = cells[29];
+    arrin[27] = cells[30];
+    
+    arrin[10] = cells[25];
+    arrin[11] = cells[26];
+    arrin[12] = cells[27];
+    
+    arrin[41] = cells[12];
+    arrin[40] = cells[11];
+    arrin[39] = cells[10];
+    
+    arrin[28] = cells[39];
+    arrin[29] = cells[40];
+    arrin[30] = cells[41];
+    
+    arrin[7] = cells[1];
+    arrin[6] = cells[2];
+    arrin[1] = cells[3];
+    arrin[2] = cells[4];
+    arrin[8] = cells[6];
+    arrin[9] = cells[7];
+    arrin[4] = cells[8];
+    arrin[3] = cells[9];
+    
+  }
+  
+  for(int i = 0; i < 54; i++){
+    
+    cells[i] = arrin[i];
+    
+  }
+}
+
 void applychange(){
   for(int i = 0; i < 28; i++){
     shiftreg[i] = ((cells[i*2] << 3) + cells[i*2+1]) << 2;
